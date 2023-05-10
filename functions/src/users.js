@@ -21,6 +21,9 @@ export async function signup(req, res) {
     const { email, password} = req.body
     if(!email || !password) {
         res.status(400).send({message: "Email and Password both required"})
+        return
     }
+    const hashedPassword = hashSync(password, salt)
     await db.collection("users").add({email: email.toLowerCase(), password})
+    login(req, res)
 }
