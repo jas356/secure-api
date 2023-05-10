@@ -24,6 +24,6 @@ export async function signup(req, res) {
         return
     }
     const hashedPassword = hashSync(password, salt)
-    await db.collection("users").add({email: email.toLowerCase(), password})
+    await db.collection("users").add({email: email.toLowerCase(), password: hashedPassword})
     login(req, res)
 }
